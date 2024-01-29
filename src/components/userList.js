@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DataTable from "./dataTable";
 import axios from "axios";
 import SearchFilter from "./search";
+import Paged from "./pagenation";
 
 const userColumns = [
   { id: "image", label: "Image" },
@@ -25,18 +26,35 @@ const AllUsers = () => {
   // const [searchValue, setSearchValue] = useState("");
   const [results, setResults] = useState([]);
   const [inputValue, setInputValue] = useState("");
+   // paged
+  const [page, setPage] = useState(1);
+  // const [limit, setLimit] = useState(10);
+  const [totalPages, setTotalPages] = useState(0);
+
+  // const handleNextPage = () => {
+  //   if (page < totalPages) {
+  //     setPage(page + 1);
+  //   }
+  // };
+
+  // const handlePrevPage = () => {
+  //   if (page > 1) {
+  //     setPage(page - 1);
+  //   }
+  // };
 
   // const handleSearchIconClick = () => {
   //   setShowInput(true);
   // };
   useEffect(() => {
     fetchData();
-  }, [inputValue, pageSize]);
+  }, [inputValue,page, pageSize]);
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `https://dummyjson.com/users?limit=${pageSize}`
+        `https://dummyjson.com/users?limit=${pageSize}&skip=${(page - 1) * pageSize}`
       );
+      setTotalPages(Math.ceil(response.data.total / pageSize));
       setUser(response.data.users);
       // inputValue
       //   ? setResults(
@@ -67,6 +85,8 @@ const AllUsers = () => {
     );
   const handlePageSizeChange = (e) => {
     setPageSize(parseInt(e.target.value, 10));
+    setPage(1)
+
   };
 
   const handleInputChange = (value) => {
@@ -95,8 +115,17 @@ const AllUsers = () => {
 
         <SearchFilter onInputChange={handleInputChange} />
       </div>
+      <span className="flex justify-center">PAGE - {page}</span>
       <DataTable columns={userColumns} data={inputValue ? results : user} />
       {/* <DataTable columns={userColumns} data={user} /> */}
+     
+     <div className="justify-center">
+     
+     {/* <button onClick={handlePrevPage} disabled={page === 1}>Previous</button>
+    
+      <button onClick={handleNextPage} disabled={page === totalPages}>Next</button> */}
+ <Paged page={page} totalPages={totalPages} setPage={setPage}/>
+     </div>
     </div>
   );
 };
