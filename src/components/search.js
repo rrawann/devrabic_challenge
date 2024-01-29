@@ -1,47 +1,62 @@
-import React, { useState } from 'react';
-
-const SearchFilter = () => {
+import React, { useState,useEffect } from "react";
+import {SearchResults} from './searchRsults'
+import axios from "axios";
+const SearchFilter = ({ onInputChange }) => {
   const [showInput, setShowInput] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
+  // const [searchValue, setSearchValue] = useState("");
+  // const [results, setResults] = useState([]);
 
   const handleSearchIconClick = () => {
     setShowInput(true);
   };
-
-  const handleInputChange = (e) => {
-    setSearchValue(e.target.value);
-    // Perform filtering logic here based on the search value
-    // For example, you can filter a list of items based on the search value
+  const handleInput = (e) => {
+    const value = e.target.value;
+    onInputChange(value);
   };
+  // const handleInputChange = (e) => {
+  //   setSearchValue(e.target.value);
 
+  // };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://dummyjson.com/users`
+  //       );
+  //       searchValue? setResults(response.data.users.filter(results => results.firstName.toLowerCase().includes(searchValue.toLowerCase()))):setResults([])
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [searchValue]);
   return (
     <div className="flex items-center">
       <div className="mr-2">
+      
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 cursor-pointer"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+          x="0px"
+          y="0px"
+          width="30"
+          height="30"
+          viewBox="0 0 32 32"
           onClick={handleSearchIconClick}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M10 19l-7-7m0 0l7-7m-7 7h18"
-          />
+          <path d="M 19 3 C 13.488281 3 9 7.488281 9 13 C 9 15.394531 9.839844 17.589844 11.25 19.3125 L 3.28125 27.28125 L 4.71875 28.71875 L 12.6875 20.75 C 14.410156 22.160156 16.605469 23 19 23 C 24.511719 23 29 18.511719 29 13 C 29 7.488281 24.511719 3 19 3 Z M 19 5 C 23.429688 5 27 8.570313 27 13 C 27 17.429688 23.429688 21 19 21 C 14.570313 21 11 17.429688 11 13 C 11 8.570313 14.570313 5 19 5 Z"></path>
         </svg>
       </div>
       {showInput && (
         <input
           type="text"
-          value={searchValue}
-          onChange={handleInputChange}
-          placeholder="Search..."
+          // value={searchValue}
+          onChange={handleInput}
+          placeholder="Search .."
           className="p-2 rounded-md border"
         />
       )}
+      {/* <SearchResults searchResults={results} /> */}
     </div>
   );
 };
