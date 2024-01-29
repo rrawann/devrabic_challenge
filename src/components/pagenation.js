@@ -1,49 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function Paged() {
-  const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [perPage] = useState(10);
+function Paged({ page , totalPages ,setPage}) {
 
-  useEffect(() => {
-    fetchData();
-  }, [currentPage]); // Fetch data when currentPage changes
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`https://dummyjson.com/users?page=${currentPage}&per_page=${perPage}`);
-      setData(response.data.users);
-    } catch (error) {
-      console.error('Error fetching data: ', error);
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
     }
   };
 
-  const nextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  const prevPage = () => {
-    setCurrentPage(currentPage - 1);
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
   };
 
   return (
     <div className="p-4">
-      <ul>
-        {data.map(item => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
       <div className="mt-4">
         <button
-          onClick={prevPage}
-          disabled={currentPage === 1}
+          onClick={handlePrevPage}
+          disabled={page === 1}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Previous
         </button>
         <button
-          onClick={nextPage}
+          onClick={handleNextPage}
+          disabled={page === totalPages}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
         >
           Next
