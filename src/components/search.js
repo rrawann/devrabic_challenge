@@ -1,9 +1,9 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 
 const SearchFilter = ({ onInputChange }) => {
+
   const [showInput, setShowInput] = useState(false);
-  // const [searchValue, setSearchValue] = useState("");
-  // const [results, setResults] = useState([]);
+ 
 
   const handleSearchIconClick = () => {
     setShowInput(true);
@@ -32,13 +32,11 @@ const SearchFilter = ({ onInputChange }) => {
       {showInput && (
         <input
           type="text"
-          // value={searchValue}
           onChange={handleInput}
           placeholder="Search .."
           className="p-2 rounded-md border"
         />
       )}
-      {/* <SearchResults searchResults={results} /> */}
     </div>
   );
 };
