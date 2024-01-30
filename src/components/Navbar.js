@@ -8,10 +8,8 @@ const Navbar = () => {
             <div className="container mx-auto flex justify-between items-center">
                 <a href="/" className="text-white text-2xl font-bold">Devrabic Challenge</a>
                 <ul className="flex space-x-4">
-
-                    <li><Link to="/productList" className="text-white">Products</Link></li>
-                    <li><Link to="/userList" className="text-white">Users</Link></li>
-                    {/* <li><Link to="/DataTable" className="text-white">DataTable</Link></li> */}
+                    <li><Link to="/productsPage" className="text-white">Products</Link></li>
+                    <li><Link to="/usersPage" className="text-white">Users</Link></li>
                 </ul>
             </div>
         </nav>

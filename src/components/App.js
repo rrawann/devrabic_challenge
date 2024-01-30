@@ -1,7 +1,6 @@
 
-import AllProducts  from "./productList";
-import AllUsers  from "./userList";
-import DataTable  from "./dataTable";
+import AllProducts  from "./productsPage";
+import AllUsers  from "./usersPage";
 import Navbar  from "./Navbar";
 import { Routes, Route } from 'react-router-dom';
 function App() {
@@ -10,9 +9,8 @@ function App() {
       <Navbar />
       <Routes>
       <Route exact path="/" element={<AllProducts />} />
-      <Route exact path="/productList" element={<AllProducts />} />
-      <Route exact path="/userList" element = {<AllUsers />} />
-      {/* <Route exact path="/DataTable" element = {<DataTable />} /> */}
+      <Route exact path="/productsPage" element={<AllProducts />} />
+      <Route exact path="/usersPage" element = {<AllUsers />} />
       </Routes>
     </div>
   );

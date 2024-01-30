@@ -4,6 +4,7 @@ import axios from "axios";
 import SearchFilter from "./search";
 import Pagination from "./pagenation";
 import Loader from "./loader";
+
 const userColumns = [
   { id: "image", label: "Image" },
   { id: "firstName", label: "First Name" },
@@ -15,7 +16,6 @@ const userColumns = [
   { id: "gender", label: "Gender" },
   { id: "birthDate", label: "Birth Date" },
   { id: "eyeColor", label: "EyeColor" },
-  { id: "maidenName", label: "Maiden Name" },
   { id: "bloodGroup", label: "Blood Group" },
 ];
 
@@ -68,20 +68,9 @@ const AllUsers = () => {
   if (!user)
     return (
       <p className="flex items-center justify-center h-screen">
-        {/* STILL LOADING ... */}
         <Loader/>
       </p>
     );
-
-     
-  // if (!results)
-  // return (
-  //   <p className="flex items-center justify-center h-screen">
-  //     {/* STILL LOADING ... */}
-  //     <Loader/>
-  //   </p>
-  // );
-
 
   return (
     <div>
@@ -105,7 +94,7 @@ const AllUsers = () => {
 
         <SearchFilter onInputChange={handleInputChange} />
       </div>
-      <span className="flex justify-center">PAGE - {page}</span>
+      <span className="flex justify-center bold">PAGE - {page}</span>
       <DataTable columns={userColumns} data={inputValue ? results : user} />
 
 
