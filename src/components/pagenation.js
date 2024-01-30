@@ -1,40 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
-function Paged({ page , totalPages ,setPage}) {
-
+function Pagination({ page, totalPages, setPage }) {
   const handleNextPage = () => {
     if (page < totalPages) {
       setPage(page + 1);
     }
   };
 
-  const handlePrevPage = () => {
+  const handlePrevPagee = () => {
     if (page > 1) {
       setPage(page - 1);
     }
   };
 
+  const handlePrevPage = (page) => {
+    setPage(page);
+  };
   return (
-    <div className="p-4">
-      <div className="mt-4">
-        <button
-          onClick={handlePrevPage}
-          disabled={page === 1}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Previous
-        </button>
-        <button
-          onClick={handleNextPage}
-          disabled={page === totalPages}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
-        >
-          Next
-        </button>
-      </div>
+    <div class="bg-white p-4 flex items-center flex-wrap justify-center">
+      <nav aria-label="Page navigation">
+        <ul class="inline-flex">
+          <li>
+            <button class="h-10 px-5 text-green-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-green-100" onClick={handlePrevPagee}>
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                <path
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+               
+                ></path>
+              </svg>
+            </button>
+          </li>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePrevPage(index + 1)}
+              className={`h-10 px-5 text-green-600 transition-colors duration-150 focus:shadow-outline hover:bg-green-100 ${
+                page === index + 1 ? "bg-green-500 text-white rounded" : ""
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <li>
+            <button
+              class="h-10 px-5 text-green-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-green-100"
+              onClick={handleNextPage}
+            >
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                <path
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
     </div>
+
   );
 }
 
-export default Paged;
+export default Pagination;

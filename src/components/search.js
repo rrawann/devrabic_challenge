@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
-import {SearchResults} from './searchRsults'
-import axios from "axios";
+
 const SearchFilter = ({ onInputChange }) => {
   const [showInput, setShowInput] = useState(false);
   // const [searchValue, setSearchValue] = useState("");
@@ -13,24 +12,7 @@ const SearchFilter = ({ onInputChange }) => {
     const value = e.target.value;
     onInputChange(value);
   };
-  // const handleInputChange = (e) => {
-  //   setSearchValue(e.target.value);
 
-  // };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://dummyjson.com/users`
-  //       );
-  //       searchValue? setResults(response.data.users.filter(results => results.firstName.toLowerCase().includes(searchValue.toLowerCase()))):setResults([])
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [searchValue]);
   return (
     <div className="flex items-center">
       <div className="mr-2">
