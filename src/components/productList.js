@@ -1,37 +1,61 @@
 import React, { useState, useEffect } from "react";
-import { getAllProducts } from "../utils/API";
-import Product from "../components/productCard";
+// import { getAllProducts } from "../utils/API";
 import axios from "axios";
 import SearchFilter from "./search";
 import DataTable from "./dataTable";
+import Loader from "./loader";
+import Pagination from "./pagenation";
 function AllProducts() {
   const [product, setProducts] = useState(null);
-  const [pageSize, setPageSize] = useState(5);
-  const [inputValue, setInputValue] = useState('');
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `https://dummyjson.com/products?limit=${pageSize}`
-        );
-        setProducts(response.data.products);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
+  const [results, setResults] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  // pagination
+  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
+  useEffect(() => {
     fetchData();
-  }, [pageSize]);
+  }, [inputValue, page, pageSize]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://dummyjson.com/products?limit=${pageSize}&skip=${
+          (page - 1) * pageSize
+        }`
+      );
+      const resultFilter = await axios.get(`https://dummyjson.com/products`);
+      inputValue
+        ? setTotalPages(1)
+        : setTotalPages(Math.ceil(response.data.total / pageSize));
+      setProducts(response.data.products);
+
+      const filteredResults = resultFilter.data.products.filter((results) => {
+        return (
+          results.title.toLowerCase().includes(inputValue.toLowerCase()) ||
+          results.price === parseInt(inputValue)
+        );
+      });
+      inputValue ? setResults(filteredResults) : setResults([]);
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   if (!product)
     return (
       <p className="flex items-center justify-center h-screen">
-        STILL LOADING ...
+        <Loader />
       </p>
     );
 
   const handlePageSizeChange = (e) => {
     setPageSize(parseInt(e.target.value, 10));
+    setPage(1);
   };
   const handleInputChange = (value) => {
     setInputValue(value);
@@ -67,10 +91,12 @@ function AllProducts() {
           </select>
         </div>
 
-          <SearchFilter  onInputChange={handleInputChange}/>
-        
+        <SearchFilter onInputChange={handleInputChange} />
       </div>
-      <DataTable columns={columns} data={product} />
+      <DataTable columns={columns} data={inputValue ? results : product} />
+      <div className="justify-center">
+        <Pagination page={page} totalPages={totalPages} setPage={setPage} />
+      </div>
     </>
   );
 }
