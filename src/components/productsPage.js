@@ -53,7 +53,7 @@ function AllProducts() {
       </p>
     );
 
-  const handlePageSizeChange = (e) => {
+  const pageSizeChange = (e) => {
     setPageSize(parseInt(e.target.value, 10));
     setPage(1);
   };
@@ -73,14 +73,15 @@ function AllProducts() {
   ];
   return (
     <>
+         
       <div className="flex justify-end mr-20">
         <div className="p-10">
-          <label htmlFor="pageSize" className="mr-2">
-            Select Page Size:
+          <label htmlFor="pageSize" className="mr-2 font-neutra">
+          Page Size :
           </label>
           <select
             id="pageSize"
-            onChange={handlePageSizeChange}
+            onChange={pageSizeChange}
             value={pageSize}
             className="p-2 rounded-md border"
           >
@@ -93,7 +94,7 @@ function AllProducts() {
 
         <SearchFilter onInputChange={handleInputChange} />
       </div>
-      <span className="flex justify-center bold">PAGE - {page}</span>
+      <span className="flex justify-center bold text-custom-black">PAGE - {page}</span>
       <DataTable columns={columns} data={inputValue ? results : product} />
       <div className="justify-center">
         <Pagination page={page} totalPages={totalPages} setPage={setPage} />

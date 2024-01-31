@@ -31,7 +31,7 @@ const AllUsers = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
-  const handlePageSizeChange = (e) => {
+  const pageSizeChange = (e) => {
     setPageSize(parseInt(e.target.value, 10));
     setPage(1);
   };
@@ -81,7 +81,7 @@ const AllUsers = () => {
           </label>
           <select
             id="pageSize"
-            onChange={handlePageSizeChange}
+            onChange={pageSizeChange}
             value={pageSize}
             className="p-2 rounded-md border"
           >

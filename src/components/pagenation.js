@@ -1,18 +1,19 @@
 
 function Pagination({ page, totalPages, setPage }) {
-  const handleNextPage = () => {
+
+  const nextPage = () => {
     if (page < totalPages) {
       setPage(page + 1);
     }
   };
 
-  const handlePrevPagee = () => {
+  const prevPagee = () => {
     if (page > 1) {
       setPage(page - 1);
     }
   };
 
-  const handlePrevPage = (page) => {
+  const handleCurrentPage = (page) => {
     setPage(page);
   };
   return (
@@ -20,7 +21,7 @@ function Pagination({ page, totalPages, setPage }) {
       <nav aria-label="Page navigation">
         <ul class="inline-flex">
           <li>
-            <button class="h-10 px-5 text-green-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-green-100" onClick={handlePrevPagee}>
+            <button class="h-10 px-5 text-gray-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-gray-100" onClick={prevPagee}>
               <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                 <path
                   d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
@@ -34,9 +35,9 @@ function Pagination({ page, totalPages, setPage }) {
           {Array.from({ length: totalPages }, (_, index) => (
             <button
               key={index}
-              onClick={() => handlePrevPage(index + 1)}
-              className={`h-10 px-5 text-green-600 transition-colors duration-150 focus:shadow-outline hover:bg-green-100 ${
-                page === index + 1 ? "bg-green-500 text-white rounded" : ""
+              onClick={() => handleCurrentPage(index + 1)}
+              className={`h-10 px-5  transition-colors duration-150 focus:shadow-outline hover:bg-gray-100 ${
+                page === index + 1 ? "bg-gray-500 text-white rounded" : ""
               }`}
             >
               {index + 1}
@@ -44,8 +45,8 @@ function Pagination({ page, totalPages, setPage }) {
           ))}
           <li>
             <button
-              class="h-10 px-5 text-green-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-green-100"
-              onClick={handleNextPage}
+              class="h-10 px-5 text-gray-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-gray-100"
+              onClick={nextPage}
             >
               <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                 <path
