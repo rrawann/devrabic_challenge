@@ -2,21 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
 .pl {
   width: 4em;
   height:4em;
@@ -27,22 +12,22 @@ code {
 }
 
 .pl__ring--a {
-  stroke: #f42f25;
+  stroke: #322625;
 }
 
 .pl__ring--b {
   animation-name: ringB;
-  stroke: #f49725;
+  stroke: #ebebeb;
 }
 
 .pl__ring--c {
   animation-name: ringC;
-  stroke: #255ff4;
+  stroke: #c0e3e5;
 }
 
 .pl__ring--d {
   animation-name: ringD;
-  stroke: #f42582;
+  stroke: #fdc936;
 }
 
 /* Animations */
